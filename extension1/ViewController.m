@@ -22,6 +22,8 @@
     [lab setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleTitle1]];
     [lab sizeToFit];
     [[self view] addSubview:lab];
+    [[self view] setBackgroundColor:[UIColor redColor]];
+    NSLog(@"the time is %@",[NSDateFormatter localizedStringFromDate:[NSDate dateWithTimeIntervalSinceNow:0] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle]);
 }
 
 
