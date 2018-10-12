@@ -7,8 +7,12 @@
 //
 
 #import "ViewController.h"
-
-@interface ViewController ()
+#import <MapKit/MapKit.h>
+@interface ViewController (){
+    MKMapView *map;
+    NSMutableArray *mapItems;
+    MKCompassButton *compass;
+}
 
 @end
 
@@ -17,13 +21,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(25, [UIScreen mainScreen].bounds.size.width / 2 - 30, 0, 0)];
-    [lab setText:@"Hello Word 😊"];
-    [lab setFont:[UIFont preferredFontForTextStyle:UIFontTextStyleTitle1]];
-    [lab sizeToFit];
-    [[self view] addSubview:lab];
-    [[self view] setBackgroundColor:[UIColor redColor]];
-    NSLog(@"the time is %@",[NSDateFormatter localizedStringFromDate:[NSDate dateWithTimeIntervalSinceNow:0] dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle]);
+    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(48.8534, 2.3488)];
+    MKMapItem *items = [[MKMapItem alloc] initWithPlacemark:placemark];
+  
+    [items setName:@"Paris au france"];
+    [items setTimeZone:[NSTimeZone timeZoneWithName:[NSTimeZone localTimeZone].name]];
+     mapItems  = [NSMutableArray arrayWithObjects:items, nil];
+    placemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(45.750000, 4.850000)];
+    items = [[MKMapItem alloc] initWithPlacemark:placemark];
+    [items setName:@"ville lyon"];
+    [mapItems addObject:items];
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSValue valueWithMKCoordinateSpan:MKCoordinateSpanMake(0.035, 0.035)],MKLaunchOptionsMapSpanKey,[NSNumber numberWithInt:1],MKLaunchOptionsMapTypeKey,MKLaunchOptionsDirectionsModeWalking,MKLaunchOptionsDirectionsModeKey, nil];
+    if (![MKMapItem openMapsWithItems:mapItems launchOptions:dic]){
+        NSLog(@"error launching map");
+    }
+    
 }
 
 
