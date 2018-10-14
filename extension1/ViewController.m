@@ -53,7 +53,7 @@
 -(void)iDemandToOpenMap:(NSNotification*)notif{
     if ([[notif name] isEqualToString:@"openMap"]) {
         if ([[notif object] isKindOfClass:[NSDictionary class]]) {
-            dispatch_queue_main_t mainQueue = dispatch_get_main_queue();
+           
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW,0);
             dispatch_sync(queue, ^{
                 NSDictionary *launchOptions = [notif object];
